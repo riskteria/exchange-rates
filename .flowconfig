@@ -1,0 +1,43 @@
+[ignore]
+;ignore libraries
+<PROJECT_ROOT>/node_modules/.*
+
+;ignore build
+<PROJECT_ROOT>/builds/.*
+
+;ignore server
+<PROJECT_ROOT>/server/.*
+
+[untyped]
+
+[include]
+<PROJECT_ROOT>/src
+<PROJECT_ROOT>/server
+<PROJECT_ROOT>/node_modules/react
+
+[libs]
+flow-typed
+<PROJECT_ROOT>/interfaces/global.js
+<PROJECT_ROOT>/node_modules/fbjs/flow/lib
+
+[lints]
+
+[options]
+all=true
+module.system.node.resolve_dirname=node_modules
+module.system.node.resolve_dirname=src
+
+module.system=haste
+
+esproposal.decorators=ignore
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable
+
+module.file_ext=.css
+module.name_mapper='.*\(.css\)' -> 'CSSModule'
+module.name_mapper='^\(.*\)\.css$' -> 'react-scripts/config/flow/css'
+module.name_mapper='^\(.*\)\.\(jpg\|png\|gif\|eot\|svg\|ttf\|woff\|woff2\|mp4\|webm\)$' -> 'react-scripts/config/flow/file'
+
+suppress_type=$FlowIssue
+suppress_type=$FlowFixMe
+[strict]

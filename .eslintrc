@@ -1,0 +1,52 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb",
+      "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+      "react",
+      "flowtype",
+      "import",
+      "react-hooks"
+    ],
+    "rules": {
+      "no-undef": [ 1 ],
+      "flowtype/no-types-missing-file-annotation": 0,
+      "flowtype/define-flow-type": 1,
+      "flowtype/use-flow-type": 1,
+      "react/jsx-filename-extension": "off",
+      "yoda": [2, "always"],
+      "jsx-a11y/label-has-associated-control": [ "error", {
+        "required": {
+          "some": [ "nesting", "id"  ]
+        }
+      }],
+      "jsx-a11y/label-has-for": [ "error", {
+        "required": {
+          "some": [ "nesting", "id"  ]
+        }
+      }]
+    },
+    "globals": {
+      "window": true,
+      "process": true,
+      "navigator": true,
+      "console": true,
+      "fetch": true,
+      "URL": true,
+      "it": true,
+      "document": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": ["src"]
+        }
+      }
+    },
+    "env": {
+      "browser": true,
+      "jest": true
+    }
+  }
