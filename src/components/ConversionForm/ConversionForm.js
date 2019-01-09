@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppContextConsumer, Rate } from '../../context';
+import { AppContextConsumer, Rate, AppContext } from '../../context';
+import { getCurrencyNameByCurrencyCode } from '../../currency';
 import './ConversionForm';
 
 type ConversionFormProps = {}
@@ -9,52 +10,70 @@ type ConversionFormState = {
 }
 
 class ConversionForm extends Component<ConversionFormProps, ConversionFormState> {
-  state = {
-    amount: 10,
-  }
+  static contextType = AppContext;
 
   onInputAmountChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    const { name, value } = event.currentTarget;
+    const { value } = event.currentTarget;
 
-    this.setState({ [name]: value });
+    // check value match input patter requirements
+    if (event.currentTarget.validity.valid) {
+      this.context.setAmount(value);
+    }
+  }
+
+  onRateChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    this.context.setRate(value);
   }
 
   renderRateOptions = (rates: Rate) => (
     Object.keys(rates).map((rate: Rate) => (
-      <option key={rate}>{rate}</option>
+      <option key={rate} value={rate}>{`${rate} - ${getCurrencyNameByCurrencyCode(rate)}`}</option>
     ))
   )
 
   render() {
+    const toCurrency = (value: number) => {
+      return new Intl.NumberFormat('id-ID').format(value);
+    }
+
     return (
       <section className="conversion-form">
-        <form className="form">
-          <div className="">
-            USD - United States Dollars
-          </div>
-          <div className="field is-horizontal">
-            <span className="select">
-              <select name="rate">
-                <AppContextConsumer>
-                  {
-                    (context) => this.renderRateOptions(context.rates)
-                  }
-                </AppContextConsumer>
-              </select>
-            </span>
-            <div className="field">
-              <div className="control">
-                <input
-                  onChange={this.onInputAmountChanged}
-                  name="amount"
-                  className="input"
-                  type="text"
-                  placeholder="Amount"
-                />
-              </div>
-            </div>
-          </div>
-        </form>
+        <AppContextConsumer>
+          {
+            (context) => (
+              <form className="form">
+                <div className="">
+                  {`Convert ${toCurrency(context.amount)} ${getCurrencyNameByCurrencyCode(context.rate)}`}
+                </div>
+                <div className="field is-horizontal">
+                  <span className="select">
+                    <select
+                      name="rate"
+                      value={context.rate}
+                      onChange={this.onRateChanged}
+                    >
+                      {this.renderRateOptions(context.rates)}
+                    </select>
+                  </span>
+                  <div className="field">
+                    <div className="control">
+                      <input
+                        name="amount"
+                        className="input"
+                        type="number"
+                        pattern="\d*"
+                        placeholder="Amount"
+                        value={context.amount}
+                        onChange={this.onInputAmountChanged}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            )
+          }
+        </AppContextConsumer>
       </section>
     );
   }
