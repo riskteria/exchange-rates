@@ -19,8 +19,9 @@ export const AppContextConsumer = AppContext.Consumer
 export class AppContextProvider extends Component<ContextProps, ContextState> {
   state = {
     amount: 10,
-    rate: 'USD',
+    baseRate: 'USD',
     rates: {},
+    currencies: [],
   }
 
   setAmount = (amount: number) => {
@@ -30,10 +31,10 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
     }));
   }
 
-  setRate = (rate: string) => {
+  setBaseRate = (baseRate: string) => {
     this.setState((prevState: State) => ({
       ...prevState,
-      rate,
+      baseRate,
     }));
   }
 
@@ -41,6 +42,20 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
     this.setState((prevState: State) => ({
       ...prevState,
       rates,
+    }));
+  }
+
+  addCurrency = (currency: Rate) => {
+    this.setState((prevState: State) => ({
+      ...prevState,
+      currencies: prevState.currencies.concat(currency),
+    }));
+  }
+
+  removeCurrency = (currencyId: string) => {
+    this.setState((prevState: State) => ({
+      ...prevState,
+      currencies: prevState.currencies.filter((currency: Rate) => currency.id !== currencyId),
     }));
   }
 
@@ -52,8 +67,10 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
         value={{
           ...this.state,
           setAmount: this.setAmount,
-          setRate: this.setRate,
+          setBaseRate: this.setBaseRate,
           setRates: this.setRates,
+          addCurrency: this.addCurrency,
+          removeCurrency: this.removeCurrency,
         }}
       >
         {children}

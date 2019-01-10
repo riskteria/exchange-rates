@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { AppContextConsumer, Rate, AppContext } from '../../context';
-import { getCurrencyNameByCurrencyCode } from '../../currency';
+import { getCurrencyNameByCurrencyCode, getCurrencyFormat } from '../../currency';
 import './ConversionForm';
 
 type ConversionFormProps = {}
 
-type ConversionFormState = {
-  amount: number
-}
+type ConversionFormState = {}
 
 class ConversionForm extends Component<ConversionFormProps, ConversionFormState> {
   static contextType = AppContext;
@@ -21,9 +19,9 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
     }
   }
 
-  onRateChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
+  onBaseRateChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
-    this.context.setRate(value);
+    this.context.setBaseRate(value);
   }
 
   renderRateOptions = (rates: Rate) => (
@@ -33,9 +31,6 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
   )
 
   render() {
-    const toCurrency = (value: number) => {
-      return new Intl.NumberFormat('id-ID').format(value);
-    }
 
     return (
       <section className="conversion-form">
@@ -44,14 +39,14 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
             (context) => (
               <form className="form">
                 <div className="">
-                  {`Convert ${toCurrency(context.amount)} ${getCurrencyNameByCurrencyCode(context.rate)}`}
+                  {`Convert ${getCurrencyFormat(context.amount)} ${getCurrencyNameByCurrencyCode(context.rate)}`}
                 </div>
                 <div className="field is-horizontal">
                   <span className="select">
                     <select
-                      name="rate"
+                      name="baseRate"
                       value={context.rate}
-                      onChange={this.onRateChanged}
+                      onChange={this.onBaseRateChanged}
                     >
                       {this.renderRateOptions(context.rates)}
                     </select>
