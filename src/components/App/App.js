@@ -1,8 +1,8 @@
 import 'bulma/css/bulma.css';
 import React from 'react';
-import { AppContextProvider } from './context';
-import ConversionForm from './components/ConversionForm';
-import Content from './components/Content';
+import { AppContextProvider } from '../../context';
+import ConversionForm from '../ConversionForm';
+import Content from '../Content';
 import './App.css';
 
 const App = () => (

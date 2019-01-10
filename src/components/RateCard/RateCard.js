@@ -60,7 +60,6 @@ class RateCard extends PureComponent<Props, State> {
           </div>
         </div>
         <button
-          role="button"
           className="button is-danger"
           onClick={this.onCurrencyRateRemoved}
         >
