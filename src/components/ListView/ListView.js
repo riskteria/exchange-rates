@@ -20,10 +20,10 @@ const ListView = (props: Props) => {
   return (
     <div className="list-view">
       {
-        data.map((d: any): React$Node => renderItem({
+        data.map((d: any, index: number): React$Node => renderItem({
           ...d,
           ...extraData,
-        }))
+        }, index))
       }
       {
         renderFooter && renderFooter()

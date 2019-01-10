@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { AppContextConsumer, Rate, AppContext } from '../../context';
-import { getCurrencyNameByCurrencyCode, getCurrencyFormat } from '../../currency';
+import { getCurrencyName, getCurrencyFormat } from '../../currency';
 import './ConversionForm';
 
 type ConversionFormProps = {}
@@ -26,7 +26,7 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
 
   renderRateOptions = (rates: Rate) => (
     Object.keys(rates).map((rate: Rate) => (
-      <option key={rate} value={rate}>{`${rate} - ${getCurrencyNameByCurrencyCode(rate)}`}</option>
+      <option key={rate} value={rate}>{`${rate} - ${getCurrencyName(rate)}`}</option>
     ))
   )
 
@@ -39,13 +39,13 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
             (context) => (
               <form className="form">
                 <div className="">
-                  {`Convert ${getCurrencyFormat(context.amount)} ${getCurrencyNameByCurrencyCode(context.rate)}`}
+                  {`Convert ${getCurrencyFormat(context.amount)} ${getCurrencyName(context.baseRate)}`}
                 </div>
                 <div className="field is-horizontal">
                   <span className="select">
                     <select
                       name="baseRate"
-                      value={context.rate}
+                      value={context.baseRate}
                       onChange={this.onBaseRateChanged}
                     >
                       {this.renderRateOptions(context.rates)}

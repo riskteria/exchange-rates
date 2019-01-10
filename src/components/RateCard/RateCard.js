@@ -1,43 +1,66 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { getCurrencyName } from '../../currency';
+import { AppContext } from '../../context';
 import './RateCard.css';
 
 type Props = {
-  currencyCode: string,
-  currencyName: string,
+  currencyId: number,
+  currencyRate: string,
   currencyValue: number,
   amount: number
 }
 
-const RateCard = (props: Props) => {
-  const {
-    currencyCode,
-    currencyName,
-    currencyValue,
-    amount,
-  } = props;
+type State = {}
 
-  return (
-    <div className="card">
-      <div className="card-wrapper">
-        <div className="card-header">
-          <div className="card-header_currency-code">
-            {currencyCode}
+class RateCard extends PureComponent<Props, State> {
+  static contextType = AppContext;
+
+  onCurrencyRateRemoved = (event: SyntheticMouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    const { removeCurrency } = this.context;
+    const { currencyId } = this.props;
+
+    removeCurrency(currencyId);
+  }
+
+  render() {
+    const {
+      currencyRate,
+      currencyValue,
+      amount,
+    } = this.props;
+
+    return (
+      <div className="card">
+        <div className="card-wrapper">
+          <div className="card-header">
+            <div className="card-header_currency-code">
+              {currencyRate}
+            </div>
+            <div className="card-header_amount">
+              {amount}
+            </div>
           </div>
-          <div className="card-header_amount">
-            {amount}
+          <div className="card-content">
+            <div className="card-content_currency-name">
+              {getCurrencyName(currencyRate)}
+            </div>
+            <div className="card-content_currency-value">
+              {currencyValue}
+            </div>
           </div>
         </div>
-        <div className="card-content">
-          <div className="card-content_currency-name">
-            {currencyName}
-          </div>
-          <div className="card-content_currency-value">
-            {currencyValue}
-          </div>
-        </div>
+        <button
+          type="button"
+          className="button is-small"
+          onClick={this.onCurrencyRateRemoved}
+        >
+          -
+        </button>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default RateCard;

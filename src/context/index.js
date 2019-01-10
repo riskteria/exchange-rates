@@ -1,15 +1,17 @@
 import React, { Component, createContext } from 'react';
+import { setItem, getItem } from '../store/localStorage';
+import type { Rate, Currency } from '../types';
 
-export type Rate = {
-  [countryID: string]: string
-}
 
 type ContextProps = {
   children: React$Node
 }
 
 type ContextState = {
-  rates: Rate
+  amount: number,
+  baseRate: stirng,
+  rates: Rate,
+  currencies: Currency[]
 }
 
 export const AppContext = createContext();
@@ -22,6 +24,29 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
     baseRate: 'USD',
     rates: {},
     currencies: [],
+  }
+
+  componentDidMount() {
+    this.rehydrateState()
+  }
+
+  componentDidUpdate() {
+    this.persistState();
+  }
+
+  rehydrateState = () => {
+    const appContext: ?State = JSON.parse(getItem('appContext'));
+
+    if (appContext) {
+      this.setState((prevState: State) => ({
+        ...prevState,
+        ...appContext,
+      }));
+    }
+  }
+
+  persistState = () => {
+    setItem('appContext', JSON.stringify(this.state));
   }
 
   setAmount = (amount: number) => {
@@ -45,17 +70,17 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
     }));
   }
 
-  addCurrency = (currency: Rate) => {
+  addCurrency = (currency: Currency) => {
     this.setState((prevState: State) => ({
       ...prevState,
-      currencies: prevState.currencies.concat(currency),
+      currencies: [...prevState.currencies, currency],
     }));
   }
 
   removeCurrency = (currencyId: string) => {
     this.setState((prevState: State) => ({
       ...prevState,
-      currencies: prevState.currencies.filter((currency: Rate) => currency.id !== currencyId),
+      currencies: prevState.currencies.filter((currency: Rate) => currency.currencyId !== currencyId),
     }));
   }
 

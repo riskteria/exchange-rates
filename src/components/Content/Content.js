@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import uuid from 'uuid/v4';
 import ListView from '../ListView';
 import RateCard from '../RateCard';
 import { AppContext, AppContextConsumer } from '../../context';
-import { getCurrencyNameByCurrencyCode } from '../../currency';
+import { getCurrencyName } from '../../currency';
 
 type ContentProps = {}
 
@@ -14,7 +15,17 @@ class Content extends Component<ContentProps, ContentState> {
   static contextType = AppContext;
 
   state = {
+    currencyRate: null,
     showCurrency: false
+  }
+
+  constructor(props, context) {
+    super(props);
+
+    this.state = {
+      currencyRate: context.baseRate,
+      showCurrency: false,
+    };
   }
 
   async componentDidMount() {
@@ -27,8 +38,27 @@ class Content extends Component<ContentProps, ContentState> {
     }));
   }
 
+  onCurrencyRateChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget
+
+    this.setState((prevState: State) => ({
+      ...prevState,
+      currencyRate: value,
+    }));
+  }
+
   onAddCurrencyFormSubmitted = (event: SyntheticEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const { addCurrency, rates } = this.context;
+    const { currencyRate } = this.state;
+
+    const currencyValue = rates[currencyRate];
+    const currencyId = uuid();
+
+    const currency = { currencyId, currencyRate, currencyValue };
+
+    addCurrency(currency);
 
     this.toggleShowCurrency();
   }
@@ -41,17 +71,17 @@ class Content extends Component<ContentProps, ContentState> {
     const { setRates, setBaseRate } = this.context;
 
     setRates(responseJson.rates);
-    setBaseRate(response.base);
+    setBaseRate(responseJson.base);
   }
 
   renderRateOptions = (rates: Rate) => (
     Object.keys(rates).map((rate: Rate) => (
-      <option key={rate} value={rate}>{`${rate} - ${getCurrencyNameByCurrencyCode(rate)}`}</option>
+      <option key={rate} value={rate}>{`${rate} - ${getCurrencyName(rate)}`}</option>
     ))
   )
 
   renderFooter = () => {
-    const { showCurrency } = this.state;
+    const { showCurrency, currencyRate } = this.state;
 
     if (false === showCurrency) {
       return (
@@ -74,8 +104,10 @@ class Content extends Component<ContentProps, ContentState> {
                 <div className="control is-expanded">
                   <div className="select is-fullwidth">
                     <select
-                      name="rate"
-                      onChange={this.onBaseRateChanged}
+                      name="currencyRate"
+                      required={true}
+                      value={currencyRate}
+                      onChange={this.onCurrencyRateChanged}
                     >
                       {this.renderRateOptions(context.rates)}
                     </select>
@@ -109,7 +141,7 @@ class Content extends Component<ContentProps, ContentState> {
                   amount: context.amount,
                   baseRate: context.baseRate,
                 }}
-                renderItem={<RateCard />}
+                renderItem={(item: any, index: number) => (<RateCard { ...item } key={index} />)}
                 renderFooter={this.renderFooter}
               />
             )
