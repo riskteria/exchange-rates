@@ -1,0 +1,28 @@
+.conversion-form {
+  padding: 1rem;
+}
+
+.conversion-form .form {
+  padding: 1rem;
+  background-color: #fcfcfc;
+}
+
+.conversion-form .form .form-title {
+  color: gray;
+}
+
+.conversion-form .form .label {
+  text-align: left;
+  font-size: 3rem;
+  font-weight: normal;
+}
+
+.conversion-form .form .input {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  text-align: right;
+  font-size: 3rem;
+  padding: 0;
+  height: auto;
+}

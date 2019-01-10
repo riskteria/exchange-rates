@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { AppContextConsumer, Rate, AppContext } from '../../context';
 import { getCurrencyName, getCurrencyFormat } from '../../currency';
-import './ConversionForm';
+import './ConversionForm.css';
 
 type ConversionFormProps = {}
 
@@ -16,12 +16,7 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
     // check value match input patter requirements
     if (false === event.currentTarget.validity.valid) return;
 
-    if (value) {
-      this.context.setAmount(value);
-      return
-    }
-
-    this.context.setAmount(1);
+    this.context.setAmount(value || 1);
   }
 
   renderRateOptions = (rates: Rate) => (
@@ -38,7 +33,7 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
           {
             (context) => (
               <form className="form">
-                <div className="">
+                <div className="form-title">
                   {`Convert ${getCurrencyFormat(context.amount)} ${getCurrencyName(context.baseRate)}`}
                 </div>
                 <div className="field is-horizontal">
@@ -56,6 +51,8 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
                           placeholder="Amount"
                           value={context.amount}
                           onChange={this.onInputAmountChanged}
+                          maxLength="number"
+                          autoFocus={true}
                         />
                       </div>
                     </div>

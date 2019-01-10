@@ -4,6 +4,7 @@ import ListView from '../ListView';
 import RateCard from '../RateCard';
 import { AppContext, AppContextConsumer } from '../../context';
 import { getCurrencyName } from '../../currency';
+import './Content.css';
 
 type ContentProps = {}
 
@@ -87,7 +88,7 @@ class Content extends Component<ContentProps, ContentState> {
       return (
         <button
           type="button"
-          className="button"
+          className="button is-fullwidth is-primary"
           onClick={this.toggleShowCurrency}
         >
           Add more currency

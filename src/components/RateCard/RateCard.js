@@ -38,16 +38,16 @@ class RateCard extends PureComponent<Props, State> {
     } = this.props;
 
     return (
-      <div className="card">
-        <div className="card-wrapper">
-          <div className="card-header">
-            <div className="card-header_currency-code">
+      <div className="rate-card">
+        <div className="card">
+          <header className="card-header">
+            <div className="card-header_currency-code is-pulled-left">
               {currencyRate}
             </div>
-            <div className="card-header_amount">
+            <div className="card-header_amount is-pulled-right">
               {this.calculateCurrencyAmountConversion(amount, currencyValue)}
             </div>
-          </div>
+          </header>
           <div className="card-content">
             <div className="card-content_currency-name">
               {`${currencyRate} - ${getCurrencyName(currencyRate)}`}
@@ -60,8 +60,8 @@ class RateCard extends PureComponent<Props, State> {
           </div>
         </div>
         <button
-          type="button"
-          className="button is-small"
+          role="button"
+          className="button is-danger"
           onClick={this.onCurrencyRateRemoved}
         >
           -

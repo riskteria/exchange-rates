@@ -26,7 +26,11 @@ const ListView = (props: Props) => {
         }, index))
       }
       {
-        renderFooter && renderFooter()
+        renderFooter && (
+          <footer className="footer">
+            {renderFooter()}
+          </footer>
+        )
       }
     </div>
   )

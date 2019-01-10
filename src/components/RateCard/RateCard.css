@@ -1,0 +1,24 @@
+.rate-card {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2rem;
+}
+.rate-card .card {
+  border-width: 0;
+  flex-grow: 1;
+}
+.rate-card .card .card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+.rate-card .button {
+  flex-grow: 0.2;
+  height: auto;;
+}
+
+.card-header_currency-code {
+  color: grey;
+  font-weight: bold;
+}
