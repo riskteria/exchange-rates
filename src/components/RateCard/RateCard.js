@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import { getCurrencyName } from '../../currency';
+import { getCurrencyName, getCurrencyFormat } from '../../currency';
 import { AppContext } from '../../context';
 import './RateCard.css';
 
@@ -7,6 +7,7 @@ type Props = {
   currencyId: number,
   currencyRate: string,
   currencyValue: number,
+  baseRate: string,
   amount: number
 }
 
@@ -24,10 +25,15 @@ class RateCard extends PureComponent<Props, State> {
     removeCurrency(currencyId);
   }
 
+  calculateCurrencyAmountConversion = (amount: number, currencyValue: number) => {
+    return getCurrencyFormat(parseFloat(amount) * parseFloat(currencyValue));
+  }
+
   render() {
     const {
       currencyRate,
       currencyValue,
+      baseRate,
       amount,
     } = this.props;
 
@@ -39,15 +45,17 @@ class RateCard extends PureComponent<Props, State> {
               {currencyRate}
             </div>
             <div className="card-header_amount">
-              {amount}
+              {this.calculateCurrencyAmountConversion(amount, currencyValue)}
             </div>
           </div>
           <div className="card-content">
             <div className="card-content_currency-name">
-              {getCurrencyName(currencyRate)}
+              {`${currencyRate} - ${getCurrencyName(currencyRate)}`}
             </div>
             <div className="card-content_currency-value">
-              {currencyValue}
+              <span>{`1 ${baseRate}`}</span>
+              <span> = </span>
+              <span>{`${currencyRate} ${getCurrencyFormat(currencyValue)}`}</span>
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ type ContextState = {
 
 export const AppContext = createContext();
 
-export const AppContextConsumer = AppContext.Consumer
+export const AppContextConsumer = AppContext.Consumer;
 
 export class AppContextProvider extends Component<ContextProps, ContextState> {
   state = {

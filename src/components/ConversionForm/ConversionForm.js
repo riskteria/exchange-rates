@@ -14,14 +14,14 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
     const { value } = event.currentTarget;
 
     // check value match input patter requirements
-    if (event.currentTarget.validity.valid) {
-      this.context.setAmount(value);
-    }
-  }
+    if (false === event.currentTarget.validity.valid) return;
 
-  onBaseRateChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    this.context.setBaseRate(value);
+    if (value) {
+      this.context.setAmount(value);
+      return
+    }
+
+    this.context.setAmount(1);
   }
 
   renderRateOptions = (rates: Rate) => (
@@ -42,26 +42,22 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
                   {`Convert ${getCurrencyFormat(context.amount)} ${getCurrencyName(context.baseRate)}`}
                 </div>
                 <div className="field is-horizontal">
-                  <span className="select">
-                    <select
-                      name="baseRate"
-                      value={context.baseRate}
-                      onChange={this.onBaseRateChanged}
-                    >
-                      {this.renderRateOptions(context.rates)}
-                    </select>
-                  </span>
-                  <div className="field">
-                    <div className="control">
-                      <input
-                        name="amount"
-                        className="input"
-                        type="number"
-                        pattern="\d*"
-                        placeholder="Amount"
-                        value={context.amount}
-                        onChange={this.onInputAmountChanged}
-                      />
+                  <div className="field-label">
+                    <label className="label">{context.baseRate}</label>
+                  </div>
+                  <div className="field-body">
+                    <div className="field">
+                      <div className="control">
+                        <input
+                          name="amount"
+                          className="input"
+                          type="number"
+                          pattern="\d*"
+                          placeholder="Amount"
+                          value={context.amount}
+                          onChange={this.onInputAmountChanged}
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
