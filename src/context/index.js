@@ -2,7 +2,6 @@ import React, { Component, createContext } from 'react';
 import { setItem, getItem } from '../store/localStorage';
 import type { Rate, Currency } from '../types';
 
-
 type ContextProps = {
   children: React$Node
 }

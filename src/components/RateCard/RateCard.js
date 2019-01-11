@@ -1,15 +1,13 @@
 import React, { PureComponent } from 'react';
 import { getCurrencyName, getCurrencyFormat } from '../../currency';
 import { AppContext } from '../../context';
+import type { Currency } from '../../types';
 import './RateCard.css';
 
 type Props = {
-  currencyId: number,
-  currencyRate: string,
-  currencyValue: number,
   baseRate: string,
   amount: number
-}
+} & Currency
 
 type State = {}
 

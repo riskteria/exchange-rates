@@ -16,6 +16,7 @@ class ConversionForm extends Component<ConversionFormProps, ConversionFormState>
     // check value match input patter requirements
     if (false === event.currentTarget.validity.valid) return;
 
+    // set amount as value or 1 as default value
     this.context.setAmount(value || 1);
   }
 

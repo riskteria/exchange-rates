@@ -3,6 +3,7 @@ export type Rate = {
 }
 
 export type Currency = {
-  id: string,
-  rate: string
+  currencyId: string,
+  currencyRate: string,
+  currencyValue: number
 }

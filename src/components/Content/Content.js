@@ -4,6 +4,7 @@ import ListView from '../ListView';
 import RateCard from '../RateCard';
 import { AppContext, AppContextConsumer } from '../../context';
 import { getCurrencyName } from '../../currency';
+import type { Currency } from '../../types';
 import './Content.css';
 
 type ContentProps = {}
@@ -66,7 +67,8 @@ class Content extends Component<ContentProps, ContentState> {
 
   fetchLatestRates = async () => {
     const url = 'https://api.exchangeratesapi.io/latest?base=USD';
-    const response = await fetch(url, { method: 'GET' });
+    const request = new Request(url, { method: "GET" });
+    const response = await fetch(request);
     const responseJson = await response.json();
 
     const { setRates, setBaseRate } = this.context;
@@ -142,7 +144,7 @@ class Content extends Component<ContentProps, ContentState> {
                   amount: context.amount,
                   baseRate: context.baseRate,
                 }}
-                renderItem={(item: any, index: number) => (<RateCard { ...item } key={index} />)}
+                renderItem={(currency: Currency) => (<RateCard { ...currency } key={currency.currencyId} />)}
                 renderFooter={this.renderFooter}
               />
             )
