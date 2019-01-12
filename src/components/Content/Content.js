@@ -102,7 +102,7 @@ class Content extends Component<ContentProps, ContentState> {
       <AppContextConsumer>
         {
           (context) => (
-            <form className="form" onSubmit={this.onAddCurrencyFormSubmitted}>
+            <form className="form content_form--add-currency" onSubmit={this.onAddCurrencyFormSubmitted}>
               <div className="field has-addons">
                 <div className="control is-expanded">
                   <div className="select is-fullwidth">
@@ -110,6 +110,7 @@ class Content extends Component<ContentProps, ContentState> {
                       name="currencyRate"
                       required={true}
                       value={currencyRate}
+                      disabled={context.rates.length === 0}
                       onChange={this.onCurrencyRateChanged}
                     >
                       {this.renderRateOptions(context.rates)}
