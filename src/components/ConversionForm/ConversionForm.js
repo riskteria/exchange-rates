@@ -17,7 +17,7 @@ class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormSt
     if (false === event.currentTarget.validity.valid) return;
 
     // set amount as value or 1 as default value
-    this.context.setAmount(value || 1);
+    this.context.setAmount(parseInt(value) || 1);
   }
 
   renderRateOptions = (rates: Rate) => (
