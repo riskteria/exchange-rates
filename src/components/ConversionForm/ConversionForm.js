@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { AppContextConsumer, Rate, AppContext } from '../../context';
 import { getCurrencyName, getCurrencyFormat } from '../../currency';
 import './ConversionForm.css';
@@ -7,7 +7,7 @@ type ConversionFormProps = {}
 
 type ConversionFormState = {}
 
-class ConversionForm extends Component<ConversionFormProps, ConversionFormState> {
+class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormState> {
   static contextType = AppContext;
 
   onInputAmountChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {

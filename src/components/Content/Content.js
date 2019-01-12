@@ -90,7 +90,7 @@ class Content extends Component<ContentProps, ContentState> {
       return (
         <button
           type="button"
-          className="button is-fullwidth is-primary"
+          className="button is-fullwidth is-primary content__button--add-currency"
           onClick={this.toggleShowCurrency}
         >
           Add more currency
@@ -119,7 +119,7 @@ class Content extends Component<ContentProps, ContentState> {
                 <div className="control">
                   <button
                     type="submit"
-                    className="button is-primary"
+                    className="button is-primary content__button--choose-currency"
                   >
                     Choose
                   </button>
