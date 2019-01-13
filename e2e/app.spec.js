@@ -1,14 +1,19 @@
 const Chrome = require('selenium-webdriver/chrome');
-const { Builder, By } = require('selenium-webdriver');
+const { Builder, By, Capabilities } = require('selenium-webdriver');
+const { path } = require('chromedriver');
+
+const service = new Chrome.ServiceBuilder(path).build();
+Chrome.setDefaultService(service);
 
 const driver = new Builder()
   .forBrowser('chrome')
+  .withCapabilities(Capabilities.chrome())
   .setChromeOptions(new Chrome.Options().headless())
   .build();
 
 
 beforeAll(async () => {
-  await driver.get('http://localhost:3000');
+  await driver.get('http://localhost:5000');
 });
 
 

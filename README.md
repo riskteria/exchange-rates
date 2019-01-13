@@ -17,6 +17,8 @@ Simple Foreign Exchange Currency App implementation with https://exchangeratesap
   git clone git@github.com:riskteria/exchange-rates.git
   ```
 
+* Install dependencies by running `yarn install`
+
 * Open project directory in terminal
   ```
   cd exchange-rates
@@ -29,19 +31,17 @@ Simple Foreign Exchange Currency App implementation with https://exchangeratesap
 
 * RUN project in docker
   ```
-  docker container run -it -p 5000:5000 exchange-rates:latest
+  docker container run -it -d -p 5000:5000 exchange-rates:latest
   ```
 
 * Open http://localhost:5000 in your browser
 
 ## Running Test
-* Unit test
+* Run Unit test
   ```
-  docker container run -it -v $(pwd):/app exchange-rates:latest test
+  yarn test
   ```
-* E2E Test
-  Run project `docker container run -it -p 5000:5000 exchange-rates:latest`
-  then run
+* Run E2E Test
   ```
-  docker container run -it -v $(pwd):/app exchange-rates:latest e2e
+  yarn e2e
   ```

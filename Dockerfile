@@ -1,5 +1,4 @@
 # base image
-FROM selenium/standalone-chrome
 FROM node:10.13.0
 
 # set working directory
