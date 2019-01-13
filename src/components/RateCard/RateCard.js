@@ -25,6 +25,9 @@ class RateCard extends PureComponent<Props, State> {
 
   calculateCurrencyAmountConversion = (amount: number, currencyValue: number) => {
     const conversion = parseFloat(amount) * parseFloat(currencyValue);
+    if (!conversion) {
+      return 0;
+    }
     return getCurrencyFormat(conversion);
   }
 

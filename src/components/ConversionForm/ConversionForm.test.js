@@ -8,7 +8,6 @@ describe('<ConversionForm />', () => {
 
     expect(wrapper).toBeDefined();
     expect(wrapper.hasClass('conversion-form')).toEqual(true);
-    expect(wrapper).toMatchSnapshot();
 
     wrapper.unmount();
   });

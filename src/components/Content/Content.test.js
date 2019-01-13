@@ -8,7 +8,6 @@ describe('<Content />', () => {
 
     expect(wrapper).toBeDefined();
     expect(wrapper.hasClass('content')).toEqual(true);
-    expect(wrapper).toMatchSnapshot();
 
     wrapper.unmount();
   });

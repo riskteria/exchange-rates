@@ -8,7 +8,6 @@ describe('<RateCard />', () => {
 
     expect(wrapper).toBeDefined();
     expect(wrapper.hasClass('rate-card')).toEqual(true);
-    expect(wrapper).toMatchSnapshot();
 
     wrapper.unmount();
   });

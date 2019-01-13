@@ -8,7 +8,6 @@ describe('<App />', () => {
 
     expect(wrapper).toBeDefined();
     expect(wrapper.find('.app')).toHaveLength(1);
-    expect(wrapper).toMatchSnapshot();
 
     wrapper.unmount();
   });

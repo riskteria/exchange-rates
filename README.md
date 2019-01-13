@@ -29,10 +29,10 @@ Simple Foreign Exchange Currency App implementation with https://exchangeratesap
 
 * RUN project in docker
   ```
-  docker container run -it -p 3000:3000 exchange-rates:latest
+  docker container run -it -p 5000:5000 exchange-rates:latest
   ```
 
-* Open http://localhost:3000 in your browser
+* Open http://localhost:5000 in your browser
 
 ## Running Test
 * Unit test
@@ -40,6 +40,8 @@ Simple Foreign Exchange Currency App implementation with https://exchangeratesap
   docker container run -it -v $(pwd):/app exchange-rates:latest test
   ```
 * E2E Test
+  Run project `docker container run -it -p 5000:5000 exchange-rates:latest`
+  then run
   ```
   docker container run -it -v $(pwd):/app exchange-rates:latest e2e
   ```
