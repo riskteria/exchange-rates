@@ -26,7 +26,7 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
   }
 
   componentDidMount() {
-    this.rehydrateState()
+    this.rehydrateState();
   }
 
   componentDidUpdate() {
@@ -79,7 +79,9 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
   removeCurrency = (currencyId: string) => {
     this.setState((prevState: State) => ({
       ...prevState,
-      currencies: prevState.currencies.filter((currency: Rate) => currency.currencyId !== currencyId),
+      currencies: prevState.currencies.filter(
+        (currency: Rate) => currency.currencyId !== currencyId,
+      ),
     }));
   }
 
@@ -99,6 +101,6 @@ export class AppContextProvider extends Component<ContextProps, ContextState> {
       >
         {children}
       </AppContext.Provider>
-    )
+    );
   }
 }

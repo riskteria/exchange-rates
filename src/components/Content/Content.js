@@ -18,7 +18,7 @@ class Content extends Component<ContentProps, ContentState> {
 
   state = {
     currencyRate: null,
-    showCurrency: false
+    showCurrency: false,
   }
 
   constructor(props, context) {
@@ -41,7 +41,7 @@ class Content extends Component<ContentProps, ContentState> {
   }
 
   onCurrencyRateChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget
+    const { value } = event.currentTarget;
 
     this.setState((prevState: State) => ({
       ...prevState,
@@ -67,7 +67,7 @@ class Content extends Component<ContentProps, ContentState> {
 
   fetchLatestRates = async () => {
     const url = 'https://api.exchangeratesapi.io/latest?base=USD';
-    const request = new Request(url, { method: "GET" });
+    const request = new Request(url, { method: 'GET' });
     const response = await fetch(request);
     const responseJson = await response.json();
 
@@ -101,16 +101,16 @@ class Content extends Component<ContentProps, ContentState> {
     return (
       <AppContextConsumer>
         {
-          (context) => (
+          (context: any) => (
             <form className="form content_form--add-currency" onSubmit={this.onAddCurrencyFormSubmitted}>
               <div className="field has-addons">
                 <div className="control is-expanded">
                   <div className="select is-fullwidth">
                     <select
                       name="currencyRate"
-                      required={true}
+                      required
                       value={currencyRate}
-                      disabled={context.rates.length === 0}
+                      disabled={0 === context.rates.length}
                       onChange={this.onCurrencyRateChanged}
                     >
                       {this.renderRateOptions(context.rates)}
@@ -138,14 +138,16 @@ class Content extends Component<ContentProps, ContentState> {
       <div className="content">
         <AppContextConsumer>
           {
-            (context) => (
+            (context: any) => (
               <ListView
                 data={context.currencies}
                 extraData={{
                   amount: context.amount,
                   baseRate: context.baseRate,
                 }}
-                renderItem={(currency: Currency) => (<RateCard { ...currency } key={currency.currencyId} />)}
+                renderItem={(currency: Currency) => (
+                  <RateCard {...currency} key={currency.currencyId} />
+                )}
                 renderFooter={this.renderFooter}
               />
             )

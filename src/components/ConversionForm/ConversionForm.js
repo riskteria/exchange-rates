@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { AppContextConsumer, Rate, AppContext } from '../../context';
+import { AppContextConsumer, AppContext } from '../../context';
+import type { Rate } from '../../types';
 import { getCurrencyName, getCurrencyFormat } from '../../currency';
 import './ConversionForm.css';
 
@@ -16,8 +17,10 @@ class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormSt
     // check value match input patter requirements
     if (false === event.currentTarget.validity.valid) return;
 
+    const { setAmount } = this.context;
+
     // set amount as value or 1 as default value
-    this.context.setAmount(parseInt(value) || 1);
+    setAmount(parseInt(value, 10) || 1);
   }
 
   renderRateOptions = (rates: Rate) => (
@@ -27,24 +30,24 @@ class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormSt
   )
 
   render() {
-
     return (
       <section className="conversion-form">
         <AppContextConsumer>
           {
-            (context) => (
+            (context: any) => (
               <form className="form">
                 <div className="form-title">
                   {`Convert ${getCurrencyFormat(context.amount)} ${getCurrencyName(context.baseRate)}`}
                 </div>
                 <div className="field is-horizontal">
                   <div className="field-label">
-                    <label className="label">{context.baseRate}</label>
+                    <label htmlFor="amount" className="label">{context.baseRate}</label>
                   </div>
                   <div className="field-body">
                     <div className="field">
                       <div className="control">
                         <input
+                          id="amount"
                           name="amount"
                           className="input"
                           type="number"
@@ -53,7 +56,6 @@ class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormSt
                           value={context.amount}
                           onChange={this.onInputAmountChanged}
                           maxLength="number"
-                          autoFocus={true}
                         />
                       </div>
                     </div>

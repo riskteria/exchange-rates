@@ -1,5 +1,3 @@
-'use strict';
-
 const Chrome = require('selenium-webdriver/chrome');
 const { Builder, By } = require('selenium-webdriver');
 
@@ -15,7 +13,6 @@ beforeAll(async () => {
 
 
 describe('validate web', () => {
-
   it('should get web title', async () => {
     const title = await driver.getTitle();
     expect(title).toEqual('React App');
@@ -97,7 +94,7 @@ describe('content', () => {
 
     await driver.wait(async () => {
       const addCurrencyFormSelectBoxOptions = await addCurrencyFormSelectBox.findElements(By.tagName('option'));
-      return addCurrencyFormSelectBoxOptions.length > 0;
+      return 0 < addCurrencyFormSelectBoxOptions.length;
     }, 2000);
 
     const rateCardsBeforeUpdate = await driver.findElements(By.className('rate-card'));
@@ -118,7 +115,7 @@ describe('content', () => {
   });
 
   it('Should be able to delete currency from list', async () => {
-    const content = await driver.findElement(By.className('content'))
+    const content = await driver.findElement(By.className('content'));
     const rateCards = await content.findElements(By.className('rate-card'));
     expect(rateCards.length).toBeGreaterThan(0);
 
@@ -135,4 +132,3 @@ describe('content', () => {
 afterAll(async () => {
   await driver.quit();
 });
-

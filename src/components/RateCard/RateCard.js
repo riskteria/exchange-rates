@@ -24,7 +24,8 @@ class RateCard extends PureComponent<Props, State> {
   }
 
   calculateCurrencyAmountConversion = (amount: number, currencyValue: number) => {
-    return getCurrencyFormat(parseFloat(amount) * parseFloat(currencyValue));
+    const conversion = parseFloat(amount) * parseFloat(currencyValue);
+    return getCurrencyFormat(conversion);
   }
 
   render() {
@@ -58,6 +59,7 @@ class RateCard extends PureComponent<Props, State> {
           </div>
         </div>
         <button
+          type="button"
           className="button is-danger"
           onClick={this.onCurrencyRateRemoved}
         >

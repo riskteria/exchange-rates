@@ -33,7 +33,7 @@ const ListView = (props: Props) => {
         )
       }
     </div>
-  )
-}
+  );
+};
 
 export default ListView;

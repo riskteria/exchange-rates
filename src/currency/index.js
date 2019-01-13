@@ -6,5 +6,6 @@ export const getCurrencyName = (currencyRate: string) => {
 };
 
 export const getCurrencyFormat = (value: number) => {
-  return new Intl.NumberFormat('id-ID').format(value);
+  const formattedNumber = new Intl.NumberFormat('id-ID').format(value);
+  return formattedNumber;
 };

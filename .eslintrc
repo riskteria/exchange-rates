@@ -7,8 +7,7 @@
     "plugins": [
       "react",
       "flowtype",
-      "import",
-      "react-hooks"
+      "import"
     ],
     "rules": {
       "no-undef": [ 1 ],
