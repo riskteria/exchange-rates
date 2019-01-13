@@ -13,14 +13,18 @@ class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormSt
 
   onInputAmountChanged = (event: SyntheticInputEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
+    const { setAmount } = this.context;
+
+    if ('' === value) {
+      setAmount(1.00);
+      return;
+    }
 
     // check value match input patter requirements
     if (false === event.currentTarget.validity.valid) return;
 
-    const { setAmount } = this.context;
-
     // set amount as value or 1 as default value
-    setAmount(parseInt(value, 10) || 1);
+    setAmount(parseFloat(value).toFixed(2));
   }
 
   renderRateOptions = (rates: Rate) => (
@@ -51,7 +55,8 @@ class ConversionForm extends PureComponent<ConversionFormProps, ConversionFormSt
                           name="amount"
                           className="input"
                           type="number"
-                          pattern="\d*"
+                          step={0.01}
+                          pattern="\d+(\.\d{1,2})?"
                           placeholder="Amount"
                           value={context.amount}
                           onChange={this.onInputAmountChanged}

@@ -19,7 +19,7 @@ export const AppContextConsumer = AppContext.Consumer;
 
 export class AppContextProvider extends Component<ContextProps, ContextState> {
   state = {
-    amount: 10,
+    amount: 10.00,
     baseRate: 'USD',
     rates: {},
     currencies: [],
